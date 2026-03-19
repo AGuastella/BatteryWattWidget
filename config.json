@@ -1,0 +1,63 @@
+{
+  // ─── BatteryWattWidget Configuration ───
+  //
+  // Edit this file and restart the widget to apply changes.
+  // The config is loaded from the same directory as the .exe.
+  //
+  // Two presets are provided below — uncomment the one you want
+  // or mix and match values to your liking.
+
+  // ─── Display ───
+
+  // Font size preset: "standard" or "big"
+  //   standard → scales font by character count (24/32/40px on 64x64 canvas)
+  //   big      → uses a single large font for all text (48px on 64x64 canvas)
+  "font_preset": "big",
+
+  // Override individual font sizes (in pixels, on a 64x64 canvas).
+  // These only apply when font_preset is "custom".
+  // short  = 1-2 characters ("AC", "!!")
+  // medium = 3 characters   ("7.2")
+  // long   = 4+ characters  ("12.3")
+  "font_size_short": 40,
+  "font_size_medium": 32,
+  "font_size_long": 24,
+
+  // Font family — must be installed on your system
+  "font_family": "Segoe UI",
+
+  // Icon canvas size in pixels (rendered then downscaled by Windows)
+  // Higher = sharper text. 64 is a good default. Max useful value ~128.
+  "icon_size": 64,
+
+  // ─── Colors ───
+
+  // Default text color when discharging (hex RGB)
+  "color_default": "#FFFFFF",
+
+  // Use color coding based on watt thresholds?
+  "color_coding_enabled": true,
+
+  // Threshold-based colors (watts → hex color)
+  // Evaluated in order: first matching threshold wins
+  "color_thresholds": [
+    { "below_watts":  8, "color": "#00C853" },
+    { "below_watts": 15, "color": "#FFC800" },
+    { "below_watts": 25, "color": "#FF8C00" },
+    { "below_watts": 999, "color": "#FF3C3C" }
+  ],
+
+  // Color when on AC power
+  "color_ac": "#00C853",
+
+  // ─── Polling ───
+
+  // How often to read battery status (in milliseconds)
+  "poll_interval_ms": 2000,
+
+  // ─── Battery ───
+
+  // Battery capacity in Wh (used only for the Win32_Battery fallback estimation)
+  // ASUS ROG Zephyrus G14 (2021) = 76 Wh
+  "battery_capacity_wh": 76.0
+}
