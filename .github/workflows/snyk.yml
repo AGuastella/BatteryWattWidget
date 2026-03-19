@@ -20,9 +20,10 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore -p:EnableWindowsTargeting=true
 
+      - name: Install Snyk CLI
+        run: npm install -g snyk
+
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/dotnet@master
+        run: snyk test --severity-threshold=high
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --severity-threshold=high
