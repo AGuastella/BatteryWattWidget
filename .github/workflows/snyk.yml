@@ -18,7 +18,7 @@ jobs:
           dotnet-version: '10.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore -p:EnableWindowsTargeting=true
 
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/dotnet@master
