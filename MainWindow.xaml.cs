@@ -15,7 +15,7 @@ namespace BatteryWattWidget
     {
         private System.Windows.Forms.NotifyIcon _trayIcon = null!;
         private DispatcherTimer _timer = null!;
-        private readonly WidgetConfig _config;
+        private WidgetConfig _config;
 
         public MainWindow()
         {
@@ -135,9 +135,10 @@ namespace BatteryWattWidget
                         break;
 
                     case BatteryState.Charging:
+                        string chargeLabel = watts < 10 ? $"{watts:F1}" : $"{watts:F0}";
                         _trayIcon.Icon?.Dispose();
-                        _trayIcon.Icon = RenderTextIcon("AC", _config.ColorAc);
-                        _trayIcon.Text = "On AC power (charging)";
+                        _trayIcon.Icon = RenderTextIcon(chargeLabel, _config.ColorAc);
+                        _trayIcon.Text = $"Charging: {watts:F1} W";
                         break;
 
                     case BatteryState.Full:
@@ -439,14 +440,13 @@ namespace BatteryWattWidget
             var reloadItem = new System.Windows.Forms.ToolStripMenuItem("Reload Config");
             reloadItem.Click += (_, _) =>
             {
-                // Reload config — requires restart for full effect,
-                // but we can update colors and polling live
-                var newConfig = WidgetConfig.Load();
-                _timer.Interval = TimeSpan.FromMilliseconds(newConfig.PollIntervalMs);
+                _config = WidgetConfig.Load();
+                _timer.Interval = TimeSpan.FromMilliseconds(_config.PollIntervalMs);
+                UpdateBatteryReading();
                 _trayIcon.ShowBalloonTip(
                     2000,
                     "Battery Watt Widget",
-                    "Config reloaded. Restart for font/size changes.",
+                    "Config reloaded.",
                     System.Windows.Forms.ToolTipIcon.Info);
             };
             menu.Items.Add(reloadItem);

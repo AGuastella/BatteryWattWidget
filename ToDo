@@ -1,0 +1,5 @@
+ToDo:
+- [x] reduce the app window, so is not visible and only live in the system tray
+- [x] while charging show the charging rate, than AC when not charging anymore
+- [x] the reloading is not actually working, need to find a way to reload the app without closing it and opening it again
+- [x] add snyk to the repo and check for vulnerabilities
