@@ -12,6 +12,7 @@
     <SelfContained>true</SelfContained>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <PublishTrimmed>false</PublishTrimmed>
+    <PublishDir>publish\</PublishDir>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
