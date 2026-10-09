@@ -27,12 +27,13 @@ namespace BatteryWattWidget
         public bool ColorCodingEnabled { get; set; } = true;
         public List<ColorThreshold> ColorThresholds { get; set; } = new()
         {
-            new() { BelowWatts = 8, Color = Color.FromArgb(0, 200, 83) },
+            new() { BelowWatts = 8, Color = Color.FromArgb(105, 240, 174) },
             new() { BelowWatts = 15, Color = Color.FromArgb(255, 200, 0) },
             new() { BelowWatts = 25, Color = Color.FromArgb(255, 140, 0) },
             new() { BelowWatts = 999, Color = Color.FromArgb(255, 60, 60) },
         };
         public Color ColorAc { get; set; } = Color.FromArgb(0, 200, 83);
+        public bool HideWhenCharging { get; set; } = false;
 
         // Polling
         public int PollIntervalMs { get; set; } = 2000;
@@ -148,6 +149,8 @@ namespace BatteryWattWidget
                     config.ColorCodingEnabled = cce.GetBoolean();
                 if (root.TryGetProperty("color_ac", out var ca))
                     config.ColorAc = ParseHexColor(ca.GetString(), config.ColorAc);
+                if (root.TryGetProperty("hide_when_charging", out var hwc))
+                    config.HideWhenCharging = hwc.GetBoolean();
 
                 if (root.TryGetProperty("color_thresholds", out var ct) && ct.ValueKind == JsonValueKind.Array)
                 {

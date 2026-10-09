@@ -77,7 +77,7 @@ namespace BatteryWattWidget
         //  Icon rendering
         // ───────────────────────────────────────────────
 
-        private System.Drawing.Icon RenderTextIcon(string text, Color? color = null)
+        private System.Drawing.Icon RenderTextIcon(string text, Color? color = null, bool underline = false)
         {
             var textColor = color ?? _config.ColorDefault;
             int size = _config.IconSize;
@@ -104,6 +104,15 @@ namespace BatteryWattWidget
 
             var rect = new RectangleF(0, 0, size, size);
             g.DrawString(text, font, brush, rect, sf);
+
+            if (underline)
+            {
+                float lineThickness = Math.Max(2f, size / 32f);
+                float lineY = size * 0.88f;
+                float margin = size * 0.10f;
+                using var pen = new Pen(textColor, lineThickness);
+                g.DrawLine(pen, margin, lineY, size - margin, lineY);
+            }
 
             IntPtr hIcon = bitmap.GetHicon();
             var icon = System.Drawing.Icon.FromHandle(hIcon);
@@ -132,25 +141,29 @@ namespace BatteryWattWidget
                         _trayIcon.Icon?.Dispose();
                         _trayIcon.Icon = RenderTextIcon(label, _config.GetWattColor(watts));
                         _trayIcon.Text = $"Discharging: {watts:F1} W";
+                        _trayIcon.Visible = true;
                         break;
 
                     case BatteryState.Charging:
                         string chargeLabel = watts < 10 ? $"{watts:F1}" : $"{watts:F0}";
                         _trayIcon.Icon?.Dispose();
-                        _trayIcon.Icon = RenderTextIcon(chargeLabel, _config.ColorAc);
+                        _trayIcon.Icon = RenderTextIcon(chargeLabel, _config.ColorAc, underline: true);
                         _trayIcon.Text = $"Charging: {watts:F1} W";
+                        _trayIcon.Visible = !_config.HideWhenCharging;
                         break;
 
                     case BatteryState.Full:
                         _trayIcon.Icon?.Dispose();
                         _trayIcon.Icon = RenderTextIcon("AC", _config.ColorAc);
                         _trayIcon.Text = "On AC power (full)";
+                        _trayIcon.Visible = true;
                         break;
 
                     default:
                         _trayIcon.Icon?.Dispose();
                         _trayIcon.Icon = RenderTextIcon("??", Color.Gray);
                         _trayIcon.Text = "Battery status unknown";
+                        _trayIcon.Visible = true;
                         break;
                 }
             }
@@ -159,6 +172,7 @@ namespace BatteryWattWidget
                 _trayIcon.Icon?.Dispose();
                 _trayIcon.Icon = RenderTextIcon("!!", Color.Red);
                 _trayIcon.Text = $"Error: {ex.Message}";
+                _trayIcon.Visible = true;
             }
         }
 

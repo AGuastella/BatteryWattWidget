@@ -1,5 +1,4 @@
 ToDo:
-- [x] reduce the app window, so is not visible and only live in the system tray
-- [x] while charging show the charging rate, than AC when not charging anymore
-- [x] the reloading is not actually working, need to find a way to reload the app without closing it and opening it again
-- [x] add snyk to the repo and check for vulnerabilities
+- [x] change the color of light consumption to light green, so it differ from AC power, which is also green but darker
+- [x] add a line under the number to highlight that is charging, and remove it when it is not charging
+- [x] evaluate an option to hide the icon when the battery is charging (added hide_when_charging config option)

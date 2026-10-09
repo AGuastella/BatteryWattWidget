@@ -41,7 +41,7 @@
   // Threshold-based colors (watts → hex color)
   // Evaluated in order: first matching threshold wins
   "color_thresholds": [
-    { "below_watts":  8, "color": "#00C853" },
+    { "below_watts":  8, "color": "#69F0AE" },
     { "below_watts": 15, "color": "#FFC800" },
     { "below_watts": 25, "color": "#FF8C00" },
     { "below_watts": 999, "color": "#FF3C3C" }
@@ -49,6 +49,9 @@
 
   // Color when on AC power
   "color_ac": "#00C853",
+
+  // Hide the tray icon completely when charging (default: false)
+  "hide_when_charging": false,
 
   // ─── Polling ───
 
