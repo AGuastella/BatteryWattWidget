@@ -12,7 +12,7 @@ dotnet run
 
 # Or publish a standalone .exe
 dotnet publish -c Release
-# Output: bin\Release\net10.0-windows\win-x64\publish\BatteryWattWidget.exe
+# Output: publish\BatteryWattWidget.exe
 ```
 
 Requires [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) (or change `TargetFramework` in `.csproj` to match your version).
